@@ -1,6 +1,5 @@
 import axios, {AxiosRequestConfig} from "axios"
-// import {createBrowserHistory} from "history"
-// const history = createBrowserHistory()
+import history from "./history"
 const appID = "HEtRxRQ3APDWy3eHKYme5KjY"
 const appSecret = "aJsNpHpJ26HyfhmuPCeWR1ip"
 
@@ -34,8 +33,7 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
   if (error.response?.status === 401) {
     console.log('重定向')
-    window.location.href='login'
-    // history.push('/login')
+    history.push('/login')
   }
   // Do something with response error
   return Promise.reject(error)
