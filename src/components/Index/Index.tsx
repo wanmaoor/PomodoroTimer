@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Menu, Dropdown, Icon} from "antd"
+import {Dropdown, Icon, Menu} from "antd"
 import axios from "config/axios"
 
 interface IRouter {
@@ -9,7 +9,6 @@ interface IRouter {
 interface IIndexState {
   user: any
 }
-
 
 
 class Index extends Component<IRouter, IIndexState> {
@@ -36,28 +35,32 @@ class Index extends Component<IRouter, IIndexState> {
   
   render(): React.ReactNode {
     const menu = (
-      <Menu style={{textAlign: 'center'}}>
+      <Menu style={{textAlign: "right"}}>
         <Menu.Item>
-          <a onClick={(e)=>{e.preventDefault()}}>
-            设置
-          </a>
+          <span onClick={(e) => {e.preventDefault()}}>
+            设置&nbsp;<Icon type={"setting"}/>
+          </span>
         </Menu.Item>
         <Menu.Item>
-          <a onClick={(e)=>{
+          <span onClick={(e) => {
             e.preventDefault()
             this.logout()
-          }}>退出登录</a>
+          }}>退出登录&nbsp;<Icon type={"logout"}/></span>
         </Menu.Item>
       </Menu>
-    );
+    )
     return (
-      <div className={'Index'} id={'Index'}>
+      <div className={"Index"} id={"Index"}>
         <header>
           <span className="log">LOGO</span>
           <Dropdown overlay={menu}>
-            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-              你好, {this.state.user?.account} <Icon type="down" />
-            </a>
+            <span
+              className="ant-dropdown-link"
+              onClick={e => e.preventDefault()}
+              style={{color: '#1890ff', cursor: 'pointer'}}
+            >
+              你好, {this.state.user?.account} <Icon type="down"/>
+            </span>
           </Dropdown>
         </header>
       </div>
