@@ -25,6 +25,7 @@ export default class Login extends Component<any, ILogin> {
         [ACCOUNT]: account, [PASSWORD]: password
       })
       console.log("成功")
+      this.props.history.push('/')
     } catch (e) {
       throw new Error(e)
     } finally {

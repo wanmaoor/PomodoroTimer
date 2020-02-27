@@ -27,6 +27,7 @@ export default class SignUp extends Component<any, ISignUp> {
         [ACCOUNT]: account, [PASSWORD]:password, [CONFIRM]: passwordConfirmed
       })
       console.log("成功")
+      this.props.history.push('/')
     } catch (e) {
       throw new Error(e)
     } finally {
