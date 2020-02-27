@@ -4,6 +4,7 @@ import {Button, Icon, Input} from "antd"
 import axios from "../../config/axios"
 import {Link} from "react-router-dom"
 import "./SignUp.scss"
+import {ACCOUNT, CONFIRM, PASSWORD} from "constrants/Sign"
 
 interface ISignUp {
   account: string
@@ -27,7 +28,7 @@ export default class SignUp extends Component<any, ISignUp> {
     
     try {
       await axios.post("sign_up/user", {
-        account, password, password_confirmation: passwordConfirmed
+        [ACCOUNT]: account, [PASSWORD]:password, [CONFIRM]: passwordConfirmed
       })
       console.log("成功")
     } catch (e) {
@@ -72,7 +73,7 @@ export default class SignUp extends Component<any, ISignUp> {
         />
         <Button
           onClick={this.submit}
-          className={"loginButton"}
+          className={"signUpButton"}
           type={"primary"}
         >
           注册
