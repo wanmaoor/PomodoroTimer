@@ -1,0 +1,23 @@
+#Index {
+	max-width: 1000px;
+	padding: 16px;
+	margin: 0 auto;
+
+	> header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 8px 16px;
+		border-bottom: 1px solid #ddd;
+	}
+
+	> .logo {
+		> .icon {
+			width: 2rem;
+			height: 2rem;
+			vertical-align: -0.15em;
+			fill: currentColor;
+			overflow: hidden;
+		}
+	}
+}

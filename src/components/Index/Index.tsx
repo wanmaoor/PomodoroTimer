@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import {Dropdown, Icon, Menu} from "antd"
 import axios from "config/axios"
+import './Index.scss'
 
 interface IRouter {
   history: any
@@ -10,6 +11,9 @@ interface IIndexState {
   user: any
 }
 
+const Tomato = Icon.createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_808628_b6nuh19mmf5.js',
+})
 
 class Index extends Component<IRouter, IIndexState> {
   constructor(props: Readonly<IRouter>) {
@@ -38,7 +42,7 @@ class Index extends Component<IRouter, IIndexState> {
       <Menu style={{textAlign: "right"}}>
         <Menu.Item>
           <span onClick={(e) => {e.preventDefault()}}>
-            设置&nbsp;<Icon type={"setting"}/>
+            偏好设置&nbsp;<Icon type={"setting"}/>
           </span>
         </Menu.Item>
         <Menu.Item>
@@ -52,12 +56,14 @@ class Index extends Component<IRouter, IIndexState> {
     return (
       <div className={"Index"} id={"Index"}>
         <header>
-          <span className="log">LOGO</span>
+          <span className="logo">
+            <Tomato type={'i-Tomato'} className={'icon'}/>
+          </span>
           <Dropdown overlay={menu}>
             <span
               className="ant-dropdown-link"
               onClick={e => e.preventDefault()}
-              style={{color: '#1890ff', cursor: 'pointer'}}
+              style={{color: '#1890ff', cursor: 'pointer', fontSize: '1rem'}}
             >
               你好, {this.state.user?.account} <Icon type="down"/>
             </span>
