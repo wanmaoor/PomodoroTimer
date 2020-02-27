@@ -1,12 +1,17 @@
 import React from "react"
 import "./App.css"
-// import {BrowserRouter as Router, Route, } from 'react-router-dom'
+import {BrowserRouter as Router, Route} from "react-router-dom"
+import Index from "./components/Index/Index"
+import Login from "./components/Login/Login"
+import SignUp from "./components/SignUp/SignUp"
 
 function App() {
   return (
-    <div className="App">
-      hello
-    </div>
+    <Router>
+      <Route exact={true} path={"/"} component={Index}/>
+      <Route path={"/login"} component={Login}/>
+      <Route path={"/signup"} component={SignUp}/>
+    </Router>
   )
 }
 
