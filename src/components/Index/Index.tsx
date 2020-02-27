@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import {Button} from "antd"
+import {Menu, Dropdown, Icon} from "antd"
 import axios from "config/axios"
 
 interface IRouter {
@@ -9,6 +9,8 @@ interface IRouter {
 interface IIndexState {
   user: any
 }
+
+
 
 class Index extends Component<IRouter, IIndexState> {
   constructor(props: Readonly<IRouter>) {
@@ -33,10 +35,31 @@ class Index extends Component<IRouter, IIndexState> {
   }
   
   render(): React.ReactNode {
+    const menu = (
+      <Menu style={{textAlign: 'center'}}>
+        <Menu.Item>
+          <a onClick={(e)=>{e.preventDefault()}}>
+            设置
+          </a>
+        </Menu.Item>
+        <Menu.Item>
+          <a onClick={(e)=>{
+            e.preventDefault()
+            this.logout()
+          }}>退出登录</a>
+        </Menu.Item>
+      </Menu>
+    );
     return (
-      <div>
-        <h1>你好, {this.state.user?.account}</h1>
-        <Button onClick={this.logout}>退出登录</Button>
+      <div className={'Index'} id={'Index'}>
+        <header>
+          <span className="log">LOGO</span>
+          <Dropdown overlay={menu}>
+            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+              你好, {this.state.user?.account} <Icon type="down" />
+            </a>
+          </Dropdown>
+        </header>
       </div>
     )
   }
