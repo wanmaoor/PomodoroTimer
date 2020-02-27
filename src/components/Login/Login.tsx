@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component} from "react"
+import React, {Component} from "react"
 import {Button, Icon, Input} from "antd"
 import axios from "../../config/axios"
 import {Link} from "react-router-dom"
@@ -25,7 +25,7 @@ export default class Login extends Component<any, ILogin> {
         [ACCOUNT]: account, [PASSWORD]: password
       })
       console.log("成功")
-      this.props.history.push('/')
+      this.props.history.push("/")
     } catch (e) {
       throw new Error(e)
     } finally {
@@ -53,12 +53,13 @@ export default class Login extends Component<any, ILogin> {
             style={{color: "rgba(0,0,0.25)"}}
           />}
           value={account}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => { this.onChange("account", e.target.value)}}
+          onChange={(e) => { this.onChange("account", e.target.value)}}
         />
         <Input.Password
           placeholder="输入密码"
           value={password}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => { this.onChange("password", e.target.value)}}
+          onChange={(e) => { this.onChange("password", e.target.value)}}
+          onKeyDown={(e) => {this.handleKeyDown(e.key)}}
         />
         <Button
           onClick={this.submit}
@@ -71,6 +72,13 @@ export default class Login extends Component<any, ILogin> {
         </p>
       </div>
     )
+  }
+  
+  
+  private handleKeyDown(value: string) {
+    if (value === "Enter") {
+      this.submit()
+    }
   }
 }
 
