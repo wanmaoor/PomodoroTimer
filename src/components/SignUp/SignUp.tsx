@@ -1,7 +1,6 @@
 import React, {ChangeEvent, Component} from "react"
 import {Button, Icon, Input} from "antd"
-// import axios from '@/config/axios'
-import axios from "../../config/axios"
+import axios from "config/axios"
 import {Link} from "react-router-dom"
 import "./SignUp.scss"
 import {ACCOUNT, CONFIRM, PASSWORD} from "constrants/Sign"
