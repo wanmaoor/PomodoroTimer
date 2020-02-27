@@ -10,14 +10,13 @@ interface ILogin {
   password: string
 }
 
-export default class SignUp extends Component<any, ILogin> {
-  private onChangeAccount: (e: ChangeEvent<HTMLInputElement>) => void = (e) => {
-    this.setState({account: e.target.value})
+
+export default class Login extends Component<any, ILogin> {
+  private onChange: (name: "account" | "password", value: string) => void = (name, value) => {
+    const newState: any = {}
+    newState[name] = value
+    this.setState(newState)
   }
-  private onChangePassword: (e: ChangeEvent<HTMLInputElement>) => void = (e) => {
-    this.setState({password: e.target.value})
-  }
-  
   private submit: () => void = async () => {
     const {account, password} = this.state
     
@@ -53,12 +52,12 @@ export default class SignUp extends Component<any, ILogin> {
             style={{color: "rgba(0,0,0.25)"}}
           />}
           value={account}
-          onChange={this.onChangeAccount}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => { this.onChange("account", e.target.value)}}
         />
         <Input.Password
           placeholder="输入密码"
           value={password}
-          onChange={this.onChangePassword}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => { this.onChange("password", e.target.value)}}
         />
         <Button
           onClick={this.submit}

@@ -13,15 +13,11 @@ interface ISignUp {
 }
 
 export default class SignUp extends Component<any, ISignUp> {
-  private onChangeAccount: (e: ChangeEvent<HTMLInputElement>) => void = (e) => {
-    this.setState({account: e.target.value})
-  }
-  private onChangePassword: (e: ChangeEvent<HTMLInputElement>) => void = (e) => {
-    this.setState({password: e.target.value})
-  }
   
-  private onChangePasswordConfirmed: (e: ChangeEvent<HTMLInputElement>) => void = (e) => {
-    this.setState({passwordConfirmed: e.target.value})
+  private onChange: (name: "account" | "password" | "passwordConfirmed", value: string) => void = (name, value) => {
+    const newState: ISignUp = {account: "", password: "", passwordConfirmed: ""}
+    newState[name] = value
+    this.setState(newState)
   }
   private submit: () => void = async () => {
     const {account, password, passwordConfirmed} = this.state
@@ -59,17 +55,17 @@ export default class SignUp extends Component<any, ISignUp> {
             style={{color: "rgba(0,0,0.25)"}}
           />}
           value={account}
-          onChange={this.onChangeAccount}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => { this.onChange("account", e.target.value)}}
         />
         <Input.Password
           placeholder="输入密码"
           value={password}
-          onChange={this.onChangePassword}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => { this.onChange("password", e.target.value)}}
         />
         <Input.Password
           placeholder="请再次输入密码"
           value={passwordConfirmed}
-          onChange={this.onChangePasswordConfirmed}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => { this.onChange("passwordConfirmed", e.target.value)}}
         />
         <Button
           onClick={this.submit}
