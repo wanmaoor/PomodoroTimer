@@ -5,8 +5,12 @@ interface ITodoInputState {
   description: string
 }
 
-class TodoInput extends Component<any, ITodoInputState> {
-  constructor(props: any) {
+interface ITodoInputProps {
+  addTodo: (params: any) => void
+}
+
+class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
+  constructor(props: ITodoInputProps) {
     super(props)
     this.state = {
       description: ""
@@ -33,9 +37,9 @@ class TodoInput extends Component<any, ITodoInputState> {
   }
   
   private handleKeyUp(e: React.KeyboardEvent<HTMLInputElement> | { [p: string]: any }) {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && this.state.description !== "") {
       // 提交 todo
-      console.log("添加")
+      this.props.addTodo({description: this.state.description})
       this.setState({description: ""})
     }
   }
