@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {Dropdown, Icon, Menu} from "antd"
 import axios from "config/axios"
 import './Index.scss'
+import Todos from "../Todos/Todos"
 
 interface IRouter {
   history: any
@@ -69,6 +70,9 @@ class Index extends Component<IRouter, IIndexState> {
             </span>
           </Dropdown>
         </header>
+        <main>
+          <Todos />
+        </main>
       </div>
     )
   }
