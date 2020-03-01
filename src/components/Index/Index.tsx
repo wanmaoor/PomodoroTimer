@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {Dropdown, Icon, Menu} from "antd"
 import axios from "config/axios"
-import './Index.scss'
+import "./Index.scss"
 import Todos from "../Todos/Todos"
 
 interface IRouter {
@@ -13,7 +13,7 @@ interface IIndexState {
 }
 
 const Tomato = Icon.createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_808628_b6nuh19mmf5.js',
+  scriptUrl: "//at.alicdn.com/t/font_808628_b6nuh19mmf5.js",
 })
 
 class Index extends Component<IRouter, IIndexState> {
@@ -58,20 +58,20 @@ class Index extends Component<IRouter, IIndexState> {
       <div className={"Index"} id={"Index"}>
         <header>
           <span className="logo">
-            <Tomato type={'i-Tomato'} className={'icon'}/>
+            <Tomato type={"i-Tomato"} className={"icon"}/>
           </span>
           <Dropdown overlay={menu}>
             <span
               className="ant-dropdown-link"
               onClick={e => e.preventDefault()}
-              style={{color: '#1890ff', cursor: 'pointer', fontSize: '1rem'}}
+              style={{color: "#1890ff", cursor: "pointer", fontSize: "1rem"}}
             >
               你好, {this.state.user?.account} <Icon type="down"/>
             </span>
           </Dropdown>
         </header>
         <main>
-          <Todos />
+          <Todos/>
         </main>
       </div>
     )

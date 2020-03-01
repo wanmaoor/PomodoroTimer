@@ -4,9 +4,6 @@ import TodoItem from "./TodoItem"
 import axios from "config/axios"
 import "./Todos.scss"
 
-interface ITodosState {
-  todos: Array<{ description: string, id: number, completed: boolean, update: (params: any) => void }>
-}
 
 class Todos extends Component<any, ITodosState> {
   constructor(props: any) {
@@ -21,10 +18,23 @@ class Todos extends Component<any, ITodosState> {
       <div className={"Todos"} id={"Todos"}>
         <TodoInput addTodo={(params: any) => {this.addTodo(params).then(r => console.log(r))}}/>
         <main>
-          {this.state.todos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}/>)}
+          {this.state.todos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}
+                                                  editTodo={this.editTodo}/>)}
         </main>
       </div>
     )
+  }
+  
+  editTodo = (id: number) => {
+    const {todos} = this.state
+    const newTodos = todos.map(t => {
+      if (id === t.id) {
+        return Object.assign({}, t, {editable: true})
+      } else {
+        return Object.assign({}, t, {editable: false})
+      }
+    })
+    this.setState({todos: newTodos})
   }
   
   updateTodo = async (id: number, params: any) => {
@@ -47,14 +57,16 @@ class Todos extends Component<any, ITodosState> {
   getTodos = async () => {
     try {
       const response = await axios.get("todos")
-      this.setState({todos: response.data.resources})
+      console.log(response)
+      const todos = response.data.resources.map((t: any) => Object.assign({}, t, {editable: false}))
+      this.setState({todos})
     } catch (e) {
       throw new Error(e)
     }
   }
   
   componentDidMount(): void {
-    this.getTodos().then(r => console.log(r))
+    this.getTodos()
   }
   
   private async addTodo(params: any) {

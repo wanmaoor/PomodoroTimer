@@ -1,14 +1,6 @@
 import React, {Component} from "react"
 import {Input} from "antd"
 
-interface ITodoInputState {
-  description: string
-}
-
-interface ITodoInputProps {
-  addTodo: (params: any) => void
-}
-
 class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
   constructor(props: ITodoInputProps) {
     super(props)
