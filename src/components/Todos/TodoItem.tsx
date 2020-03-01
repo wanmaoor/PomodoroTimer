@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import {Checkbox, Icon} from "antd"
-
+import classNames from "classnames"
+import "./TodoItem.scss"
 
 class TodoItem extends Component<ITodoExtend, ITodoItemState> {
   constructor(props: any) {
@@ -18,16 +19,23 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
                onChange={(e) => {this.handleEditTextChange(e.target.value)}}
                onKeyUp={(e) => {this.handelKeyUp(e)}}
                onBlur={() => {this.props.editTodo(this.props.id)}}
+               autoFocus={true}
         />
         <div className="iconWrapper">
-          <Icon type={"enter"} onClick={() => {this.submit()}}/>
-          <Icon type={"delete"} onClick={() => this.props.update(this.props.id, {deleted: true})}/>
+          <Icon type={"enter"} onClick={() => {this.submit()}} className={"enter"}/>
+          <Icon type={"delete"} onClick={() => {this.props.update(this.props.id, {deleted: true})}}/>
         </div>
       </div>
     )
-    const Text = (<span onDoubleClick={() => {this.props.editTodo(this.props.id)}}>{this.props.description}</span>)
+    const Text = (<span className={"Text"}
+    >{this.props.description}</span>)
+    const todoItemClass = classNames({
+      TodoItem: true,
+      editing: this.props.editable,
+      completed: this.props.completed
+    })
     return (
-      <div className={"TodoItem"} id={"TodoItem"}>
+      <div className={todoItemClass} id={"TodoItem"} onDoubleClick={() => {this.props.editTodo(this.props.id)}}>
         <Checkbox
           checked={this.props.completed}
           onChange={(e) => {this.props.update(this.props.id, {completed: e.target.checked})}}

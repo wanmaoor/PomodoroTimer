@@ -1,0 +1,50 @@
+#TodoItem {
+	display: flex;
+	align-items: center;
+	padding: 8px 0;
+	border-bottom: 1px solid #dddddd;
+
+	&:hover {
+		background: #f9f9f9;
+	}
+
+	&:first-child {
+		border-top: 1px solid #dddddd;
+	}
+
+	&.editing {
+		background: #fff3d2;
+	}
+
+	&.completed {
+		text-decoration: line-through;
+		color: #a9a9a9;
+	}
+
+	> .editing, > .text {
+		flex: 1;
+	}
+
+	> .editing {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 8px;
+
+		> .iconWrapper .anticon {
+			margin-right: 8px;
+		}
+
+		> input {
+			border: 0;
+			padding: 0;
+			outline: none;
+			background: transparent;
+		}
+	}
+
+	> .Text {
+		padding: 0 6px;
+	}
+
+}

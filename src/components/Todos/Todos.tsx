@@ -13,14 +13,30 @@ class Todos extends Component<any, ITodosState> {
     }
   }
   
+  get unCompletedTodos() {
+    return this.unDeletedTodos.filter(t => !t.completed)
+  }
+  
+  get unDeletedTodos() {
+    return this.state.todos.filter(t => !t.deleted)
+  }
+  
+  get completedTodos() {
+    return this.unDeletedTodos.filter(t => t.completed)
+  }
+  
   render() {
     return (
       <div className={"Todos"} id={"Todos"}>
         <TodoInput addTodo={(params: any) => {this.addTodo(params).then(r => console.log(r))}}/>
-        <main>
-          {this.state.todos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}
-                                                  editTodo={this.editTodo}/>)}
-        </main>
+        <div className={"todoList"}>
+          {this.unCompletedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}
+                                                       editTodo={this.editTodo}/>)}
+          {
+            this.completedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}
+                                                      editTodo={this.editTodo}/>)
+          }
+        </div>
       </div>
     )
   }
@@ -57,7 +73,7 @@ class Todos extends Component<any, ITodosState> {
   getTodos = async () => {
     try {
       const response = await axios.get("todos")
-      console.log(response)
+      console.log(response.data.resources)
       const todos = response.data.resources.map((t: any) => Object.assign({}, t, {editable: false}))
       this.setState({todos})
     } catch (e) {

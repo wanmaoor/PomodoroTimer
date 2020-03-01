@@ -12,7 +12,7 @@ interface ITodo {
 }
 
 interface ITodoExtend extends ITodo {
-  editable: boolean
+  editable?: boolean
   editTodo: (id: number) => void
   update: (id: number, params: any) => void
 }
