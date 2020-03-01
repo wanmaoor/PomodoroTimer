@@ -3,7 +3,7 @@ import {Button, Icon, Input} from "antd"
 import axios from "config/axios"
 import {Link} from "react-router-dom"
 import "./SignUp.scss"
-import {ACCOUNT, CONFIRM, PASSWORD} from "constrants/Sign"
+import {ACCOUNT, CONFIRM, PASSWORD} from "constants/Sign"
 
 interface ISignUp {
   account: string
