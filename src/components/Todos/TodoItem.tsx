@@ -22,7 +22,7 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
                onKeyUp={(e) => {this.handelKeyUp(e)}}
         />
         <div className="iconWrapper">
-          <Icon type={"enter"}/>
+          <Icon type={"enter"} onClick={() => {this.submit()}}/>
           <Icon type={"delete"} onClick={() => this.props.update(this.props.id, {deleted: true})}/>
         </div>
       </div>
@@ -48,6 +48,11 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
   }
   
   
+  private submit() {
+    if (this.state.editText !== "") {
+      this.props.update(this.props.id, {description: this.state.editText})
+    }
+  }
 }
 
 export default TodoItem
