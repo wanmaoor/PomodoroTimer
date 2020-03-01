@@ -10,9 +10,6 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
     }
   }
   
-  handleEditTextChange = (val: string) => {
-    this.setState({editText: val})
-  }
   
   render() {
     const Editing = (
@@ -20,6 +17,7 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
         <input type={"text"} value={this.state.editText}
                onChange={(e) => {this.handleEditTextChange(e.target.value)}}
                onKeyUp={(e) => {this.handelKeyUp(e)}}
+               onBlur={() => {this.props.editTodo(this.props.id)}}
         />
         <div className="iconWrapper">
           <Icon type={"enter"} onClick={() => {this.submit()}}/>
@@ -52,6 +50,10 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
     if (this.state.editText !== "") {
       this.props.update(this.props.id, {description: this.state.editText})
     }
+  }
+  
+  private handleEditTextChange = (val: string) => {
+    this.setState({editText: val})
   }
 }
 

@@ -29,7 +29,7 @@ class Todos extends Component<any, ITodosState> {
     const {todos} = this.state
     const newTodos = todos.map(t => {
       if (id === t.id) {
-        return Object.assign({}, t, {editable: true})
+        return Object.assign({}, t, {editable: !t.editable})
       } else {
         return Object.assign({}, t, {editable: false})
       }
