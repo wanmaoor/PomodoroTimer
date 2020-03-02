@@ -8,23 +8,17 @@ import "./Todos.scss"
 
 
 class Todos extends Component<any> {
-  constructor(props: any) {
-    super(props)
-    this.state = {
-      todos: []
-    }
-  }
   
   get unCompletedTodos() {
-    return this.unDeletedTodos.filter(t => !t.completed)
+    return this.unDeletedTodos.filter((t: ITodo) => !t.completed)
   }
   
   get unDeletedTodos() {
-    return this.props.todos.filter(t => !t.deleted)
+    return this.props.todos.filter((t: ITodo) => !t.deleted)
   }
   
   get completedTodos() {
-    return this.unDeletedTodos.filter(t => t.completed)
+    return this.unDeletedTodos.filter((t: ITodo) => t.completed)
   }
   
   render() {
@@ -32,11 +26,11 @@ class Todos extends Component<any> {
       <div className={"Todos"} id={"Todos"}>
         <TodoInput/>
         <div className={"todoList"}>
-          {this.unCompletedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.postTodo}
-                                                       editTodo={this.isTodoEditable}/>)}
+          {this.unCompletedTodos.map((todo: ITodo) => <TodoItem key={todo.id} {...todo} update={this.postTodo}
+                                                                editTodo={this.isTodoEditable}/>)}
           {
-            this.completedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.postTodo}
-                                                      editTodo={this.isTodoEditable}/>)
+            this.completedTodos.map((todo: ITodo) => <TodoItem key={todo.id} {...todo} update={this.postTodo}
+                                                               editTodo={this.isTodoEditable}/>)
           }
         </div>
       </div>
@@ -72,7 +66,13 @@ class Todos extends Component<any> {
   }
 }
 
-const mapStateToProps = (state: ITodosState, ownProps: any) => {
+interface IMSTPTodos {
+  todos: Array<ITodoExtend>
+  
+  [propName: string]: any
+}
+
+const mapStateToProps: (state: ITodosState, ownProps: any) => IMSTPTodos = (state, ownProps) => {
   return {
     todos: state.todos,
     ...ownProps

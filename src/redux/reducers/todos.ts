@@ -1,6 +1,6 @@
 import {ADD_TODO, EDIT_TODO, INIT_TODOS, UPDATE_TODO} from "../actionTypes"
 
-export default function (state: Array<any> = [], action: any) {
+export default function (state: Array<ITodoExtend> = [], action: any) {
   switch (action.type) {
     case ADD_TODO:
       return [...state, action.payload]
