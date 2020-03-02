@@ -22,8 +22,15 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
                autoFocus={true}
         />
         <div className="iconWrapper">
-          <Icon type={"enter"} onClick={() => {this.submit()}} className={"enter"}/>
-          <Icon type={"delete"} onClick={() => {this.props.update(this.props.id, {deleted: true})}}/>
+          <Icon
+            type={"enter"}
+            onClick={() => {this.submit()}}
+            className={"enter"}
+          />
+          <Icon
+            type={"delete"}
+            onClick={() => {this.props.update(this.props.id, {deleted: true})}}
+          />
         </div>
       </div>
     )

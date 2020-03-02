@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import {addTodo, initTodos} from "../../redux/actions"
+import {editTodo, initTodos, updateTodo} from "../../redux/actions"
 import TodoInput from "./TodoInput"
 import TodoItem from "./TodoItem"
 import axios from "config/axios"
@@ -32,41 +32,25 @@ class Todos extends Component<any> {
       <div className={"Todos"} id={"Todos"}>
         <TodoInput/>
         <div className={"todoList"}>
-          {this.unCompletedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}
-                                                       editTodo={this.editTodo}/>)}
+          {this.unCompletedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.postTodo}
+                                                       editTodo={this.isTodoEditable}/>)}
           {
-            this.completedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}
-                                                      editTodo={this.editTodo}/>)
+            this.completedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.postTodo}
+                                                      editTodo={this.isTodoEditable}/>)
           }
         </div>
       </div>
     )
   }
   
-  editTodo = (id: number) => {
-    const {todos} = this.props
-    const newTodos = todos.map(t => {
-      if (id === t.id) {
-        return Object.assign({}, t, {editable: !t.editable})
-      } else {
-        return Object.assign({}, t, {editable: false})
-      }
-    })
-    this.setState({todos: newTodos})
+  isTodoEditable = (id: number) => {
+    this.props.editTodo(id)
   }
   
-  updateTodo = async (id: number, params: any) => {
-    const {todos} = this.props
+  postTodo = async (id: number, params: any) => {
     try {
       const response = await axios.put(`todos/${id}`, params)
-      const newTodos = todos.map(t => {
-        if (id === t.id) {
-          return response.data.resource
-        } else {
-          return t
-        }
-      })
-      this.setState({todos: newTodos})
+      this.props.updateTodo(response.data.resource)
     } catch (e) {
       throw new Error(e)
     }
@@ -82,6 +66,7 @@ class Todos extends Component<any> {
     }
   }
   
+  
   componentDidMount(): void {
     this.getTodos()
   }
@@ -94,7 +79,8 @@ const mapStateToProps = (state: ITodosState, ownProps: any) => {
   }
 }
 const mapDispatchToProps = {
-  addTodo,
-  initTodos
+  initTodos,
+  editTodo,
+  updateTodo
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Todos)
