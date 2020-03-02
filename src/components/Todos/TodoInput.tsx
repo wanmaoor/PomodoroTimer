@@ -1,5 +1,8 @@
 import React, {Component} from "react"
 import {Input} from "antd"
+import {connect} from "react-redux"
+import {addTodo} from "../../redux/actions"
+import axios from "config/axios"
 
 class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
   constructor(props: ITodoInputProps) {
@@ -7,10 +10,21 @@ class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
     this.state = {
       description: ""
     }
+    console.log(this.props)
   }
   
   onChange = (value: string) => {
     this.setState({description: value})
+  }
+  
+  postTodo = async () => {
+    try {
+      let response = await axios.post("todos", {description: this.state.description})
+      console.log(response)
+      this.props.addTodo(response.data.resource)
+    } catch (e) {
+      throw new Error(e)
+    }
   }
   
   render() {
@@ -30,12 +44,20 @@ class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
   
   private handleKeyUp(e: React.KeyboardEvent<HTMLInputElement> | { [p: string]: any }) {
     if (e.key === "Enter" && this.state.description !== "") {
-      // 提交 todo
-      this.props.addTodo({description: this.state.description})
-      this.setState({description: ""})
+      this.postTodo()
     }
   }
 }
 
 
-export default TodoInput
+const mapStateToProps = (state: any, ownProps: any) => {
+  return {
+    todos: state.todos,
+    ...ownProps
+  }
+}
+const mapDispatchToProps = {
+  addTodo
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TodoInput)
+

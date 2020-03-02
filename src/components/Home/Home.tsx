@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {Dropdown, Icon, Menu} from "antd"
 import axios from "config/axios"
-import "./Index.scss"
+import "./Home.scss"
 import Todos from "../Todos/Todos"
 
 interface IRouter {
@@ -16,7 +16,7 @@ const Tomato = Icon.createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_808628_b6nuh19mmf5.js",
 })
 
-class Index extends Component<IRouter, IIndexState> {
+class Home extends Component<IRouter, IIndexState> {
   constructor(props: Readonly<IRouter>) {
     super(props)
     this.state = {
@@ -55,7 +55,7 @@ class Index extends Component<IRouter, IIndexState> {
       </Menu>
     )
     return (
-      <div className={"Index"} id={"Index"}>
+      <div className={"Home"} id={"Home"}>
         <header>
           <span className="logo">
             <Tomato type={"i-Tomato"} className={"icon"}/>
@@ -78,4 +78,4 @@ class Index extends Component<IRouter, IIndexState> {
   }
 }
 
-export default Index
+export default Home

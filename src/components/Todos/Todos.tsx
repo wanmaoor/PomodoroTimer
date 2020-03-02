@@ -1,4 +1,6 @@
 import React, {Component} from "react"
+import {connect} from "react-redux"
+import {addTodo} from "../../redux/actions"
 import TodoInput from "./TodoInput"
 import TodoItem from "./TodoItem"
 import axios from "config/axios"
@@ -28,7 +30,7 @@ class Todos extends Component<any, ITodosState> {
   render() {
     return (
       <div className={"Todos"} id={"Todos"}>
-        <TodoInput addTodo={(params: any) => {this.addTodo(params).then(r => console.log(r))}}/>
+        <TodoInput/>
         <div className={"todoList"}>
           {this.unCompletedTodos.map(todo => <TodoItem key={todo.id} {...todo} update={this.updateTodo}
                                                        editTodo={this.editTodo}/>)}
@@ -84,17 +86,15 @@ class Todos extends Component<any, ITodosState> {
   componentDidMount(): void {
     this.getTodos()
   }
-  
-  private async addTodo(params: any) {
-    const {todos} = this.state
-    try {
-      const response = await axios.post("todos", params)
-      this.setState({todos: [response.data.resource, ...todos]})
-    } catch (e) {
-      throw new Error(e)
-    }
-  }
 }
 
-
-export default Todos
+const mapStateToProps = (state: ITodosState, ownProps: any) => {
+  return {
+    todos: state.todos,
+    ...ownProps
+  }
+}
+const mapDispatchToProps = {
+  addTodo
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Todos)

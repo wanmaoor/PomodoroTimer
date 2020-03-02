@@ -30,5 +30,5 @@ interface ITodoInputState {
 }
 
 interface ITodoInputProps {
-  addTodo: (params: any) => void
+  addTodo: (payload: any) => any
 }
