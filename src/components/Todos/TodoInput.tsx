@@ -10,7 +10,6 @@ class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
     this.state = {
       description: ""
     }
-    console.log(this.props)
   }
   
   onChange = (value: string) => {

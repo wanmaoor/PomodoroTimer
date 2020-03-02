@@ -1,13 +1,13 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import {addTodo} from "../../redux/actions"
+import {addTodo, initTodos} from "../../redux/actions"
 import TodoInput from "./TodoInput"
 import TodoItem from "./TodoItem"
 import axios from "config/axios"
 import "./Todos.scss"
 
 
-class Todos extends Component<any, ITodosState> {
+class Todos extends Component<any> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -20,7 +20,7 @@ class Todos extends Component<any, ITodosState> {
   }
   
   get unDeletedTodos() {
-    return this.state.todos.filter(t => !t.deleted)
+    return this.props.todos.filter(t => !t.deleted)
   }
   
   get completedTodos() {
@@ -44,7 +44,7 @@ class Todos extends Component<any, ITodosState> {
   }
   
   editTodo = (id: number) => {
-    const {todos} = this.state
+    const {todos} = this.props
     const newTodos = todos.map(t => {
       if (id === t.id) {
         return Object.assign({}, t, {editable: !t.editable})
@@ -56,7 +56,7 @@ class Todos extends Component<any, ITodosState> {
   }
   
   updateTodo = async (id: number, params: any) => {
-    const {todos} = this.state
+    const {todos} = this.props
     try {
       const response = await axios.put(`todos/${id}`, params)
       const newTodos = todos.map(t => {
@@ -75,9 +75,8 @@ class Todos extends Component<any, ITodosState> {
   getTodos = async () => {
     try {
       const response = await axios.get("todos")
-      console.log(response.data.resources)
       const todos = response.data.resources.map((t: any) => Object.assign({}, t, {editable: false}))
-      this.setState({todos})
+      this.props.initTodos(todos)
     } catch (e) {
       throw new Error(e)
     }
@@ -95,6 +94,7 @@ const mapStateToProps = (state: ITodosState, ownProps: any) => {
   }
 }
 const mapDispatchToProps = {
-  addTodo
+  addTodo,
+  initTodos
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Todos)
