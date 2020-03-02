@@ -1,4 +1,4 @@
-import {ADD_TODO, EDIT_TODO, INIT_TODOS, UPDATE_TODO} from "./actionTypes"
+import {ADD_TODO, EDIT_TODO, INIT_TODOS, UPDATE_TODO} from "../actionTypes"
 
 export const addTodo = (payload: ITodo) => {
   return {

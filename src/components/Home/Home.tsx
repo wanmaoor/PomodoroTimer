@@ -3,6 +3,7 @@ import {Dropdown, Icon, Menu} from "antd"
 import axios from "config/axios"
 import "./Home.scss"
 import Todos from "../Todos/Todos"
+import Tomatoes from "../Tomatoes/Tomatoes"
 
 interface IRouter {
   history: any
@@ -71,6 +72,7 @@ class Home extends Component<IRouter, IIndexState> {
           </Dropdown>
         </header>
         <main>
+          <Tomatoes/>
           <Todos/>
         </main>
       </div>

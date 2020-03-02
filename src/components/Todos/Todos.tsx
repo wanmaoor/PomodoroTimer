@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import {editTodo, initTodos, updateTodo} from "../../redux/actions"
+import {editTodo, initTodos, updateTodo} from "../../redux/actions/todoActions"
 import TodoInput from "./TodoInput"
 import TodoItem from "./TodoItem"
 import axios from "config/axios"
