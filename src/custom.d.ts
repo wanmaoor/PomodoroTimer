@@ -1,4 +1,4 @@
-// Todos 组件声明
+// Todos 声明
 interface ITodo {
   id: number
   user_id: number
@@ -31,4 +31,30 @@ interface ITodoInputState {
 
 interface ITodoInputProps {
   addTodo: (payload: any) => any
+}
+
+// Tomatoes 声明
+
+interface ITomatoActionProps {
+  startTomato: () => void
+  unfinishedTomato: ITomato[]
+}
+
+interface ITomatoesProps {
+  addTomato: (payload: any) => any
+  tomatoes: ITomato[]
+}
+
+interface ITomato {
+  id: number
+  user_id: number
+  started_at: string
+  ended_at: string
+  description: string
+  aborted: boolean
+  manually_created: boolean
+  duration: number
+  extra: {}
+  crated_at: string
+  updated_at: string
 }
