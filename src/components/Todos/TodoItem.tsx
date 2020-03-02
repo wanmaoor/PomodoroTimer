@@ -18,7 +18,6 @@ class TodoItem extends Component<ITodoExtend, ITodoItemState> {
         <input type={"text"} value={this.state.editText}
                onChange={(e) => {this.handleEditTextChange(e.target.value)}}
                onKeyUp={(e) => {this.handelKeyUp(e)}}
-               onBlur={() => {this.props.editTodo(this.props.id)}}
                autoFocus={true}
         />
         <div className="iconWrapper">
