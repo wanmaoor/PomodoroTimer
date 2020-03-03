@@ -41,6 +41,10 @@ interface ITomatoActionProps {
   unfinishedTomato: ITomato
 }
 
+interface ITomatoActionState {
+  description: string
+}
+
 interface ITomatoesProps {
   addTomato: (payload: any) => any
   updateTomato: (payload: any) => any
@@ -62,6 +66,8 @@ interface ITomato {
   updated_at: string
 }
 
-interface ITomatoActionState {
-  description: string
+interface ICountDownProps {
+  timer: number
+  onFinish: () => void
+  duration: number
 }

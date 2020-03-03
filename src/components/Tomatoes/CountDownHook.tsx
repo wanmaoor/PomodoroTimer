@@ -1,7 +1,9 @@
 import React, {FC, useEffect, useState} from "react"
+import "./CountDown.scss"
+import {TITLE} from "../../constants/Sign"
 
 let timerId: number
-const CountDownHook: FC<{ timer: number, onFinish: () => void }> = (props) => {
+const CountDownHook: FC<ICountDownProps> = (props) => {
   const [countDown, setCountDown] = useState(props.timer)
   const min = Math.floor(countDown / 1000 / 60)
   const sec = Math.floor(countDown / 1000 % 60)
@@ -14,16 +16,18 @@ const CountDownHook: FC<{ timer: number, onFinish: () => void }> = (props) => {
     if (countDown < 0) {
       props.onFinish()
       clearInterval(timerId)
-      document.title = "番茄工作法 - Pomodoro Timer"
+      document.title = TITLE
     }
     
     return () => {
       window.clearInterval(timerId)
     }
   })
+  const percent = 1 - countDown / props.duration
   return (
     <div className={"CountDown"} id={"CountDown"}>
-      {min >= 0 || sec >= 0 ? time : `00 : 00`}
+      <span className={"restTime"}>{min >= 0 || sec >= 0 ? time : `00 : 00`}</span>
+      <div className="progress" style={{width: `${percent * 100}%`}}/>
     </div>
   )
 }
