@@ -37,11 +37,14 @@ interface ITodoInputProps {
 
 interface ITomatoActionProps {
   startTomato: () => void
-  unfinishedTomato: ITomato[]
+  updateTomato: (payload: any) => any
+  unfinishedTomato: ITomato
 }
 
 interface ITomatoesProps {
   addTomato: (payload: any) => any
+  updateTomato: (payload: any) => any
+  initTomatoes: (payload: any[]) => void
   tomatoes: ITomato[]
 }
 
@@ -57,4 +60,8 @@ interface ITomato {
   extra: {}
   crated_at: string
   updated_at: string
+}
+
+interface ITomatoActionState {
+  description: string
 }

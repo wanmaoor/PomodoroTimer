@@ -2,19 +2,20 @@ import React, {Component} from "react"
 import TomatoAction from "./TomatoAction"
 import {connect} from "react-redux"
 import "./Tomatoes.scss"
-import {addTomato, initTomatoes} from "../../redux/actions/tomatoActions"
+import {addTomato, initTomatoes, updateTomato} from "../../redux/actions/tomatoActions"
 import axios from "../../config/axios"
 
 
 class Tomatoes extends Component<ITomatoesProps> {
   get unfinishedTomato() {
-    return this.props.tomatoes.filter(t => !t.description && !t.ended_at)
+    console.log(this.props.tomatoes.filter(t => !t.description && !t.ended_at))
+    return this.props.tomatoes.filter(t => !t.description && !t.ended_at)[0]
   }
   
   getTomatoes = async () => {
     try {
       const response = await axios.get("tomatoes")
-      console.log(response)
+      this.props.initTomatoes(response.data.resources)
     } catch (e) {
       throw new Error()
     }
@@ -29,6 +30,7 @@ class Tomatoes extends Component<ITomatoesProps> {
       <div className={"Tomatoes"} id={"Tomatoes"}>
         <TomatoAction
           startTomato={this.startTomato}
+          updateTomato={this.props.updateTomato}
           unfinishedTomato={this.unfinishedTomato}
         />
       </div>
@@ -37,7 +39,7 @@ class Tomatoes extends Component<ITomatoesProps> {
   
   private startTomato = async () => {
     try {
-      const response = await axios.post("tomatoes", {duration: 25 * 60 * 1000})
+      const response = await axios.post("tomatoes", {duration: 5 * 1000})
       this.props.addTomato(response.data.resource)
       console.log(response)
     } catch (e) {
@@ -49,7 +51,8 @@ class Tomatoes extends Component<ITomatoesProps> {
 const mapStateToProps = (state: any, props: any) => ({tomatoes: state.tomatoes, ...props})
 const mapDispatchToProps = {
   addTomato,
-  initTomatoes
+  initTomatoes,
+  updateTomato
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tomatoes)
