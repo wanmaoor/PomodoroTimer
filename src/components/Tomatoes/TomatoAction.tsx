@@ -18,7 +18,7 @@ class TomatoAction extends Component<ITomatoActionProps, ITomatoActionState> {
   render() {
     let showcase = <div/>
     if (this.props.unfinishedTomato === undefined) {
-      showcase = <Button type={"primary"} className={"startTomatoButton"}
+      showcase = <Button type={"primary"} block
                          onClick={() => {this.props.startTomato()}}>开始番茄</Button>
     } else {
       const started_at = Date.parse(this.props.unfinishedTomato?.started_at)
