@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import {Button, Icon, Input} from "antd"
 import axios from "config/axios"
-import CountDown from "./CountDown"
+import CountDown from "./CountDownHook"
 
 class TomatoAction extends Component<ITomatoActionProps, ITomatoActionState> {
   constructor(props: ITomatoActionProps) {
@@ -56,7 +56,6 @@ class TomatoAction extends Component<ITomatoActionProps, ITomatoActionState> {
     try {
       const response = await axios.put(`tomatoes/${this.props.unfinishedTomato?.id}`,
         {description: this.state.description, ended_at: new Date()})
-      console.log(response)
       this.props.updateTomato(response.data.resource)
     } catch (e) {
       throw new Error(e)

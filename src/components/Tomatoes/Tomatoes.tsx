@@ -8,7 +8,6 @@ import axios from "../../config/axios"
 
 class Tomatoes extends Component<ITomatoesProps> {
   get unfinishedTomato() {
-    console.log(this.props.tomatoes.filter(t => !t.description && !t.ended_at))
     return this.props.tomatoes.filter(t => !t.description && !t.ended_at)[0]
   }
   
@@ -41,7 +40,6 @@ class Tomatoes extends Component<ITomatoesProps> {
     try {
       const response = await axios.post("tomatoes", {duration: 5 * 1000})
       this.props.addTomato(response.data.resource)
-      console.log(response)
     } catch (e) {
       throw new Error(e)
     }
