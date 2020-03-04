@@ -19,7 +19,6 @@ class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
   postTodo = async () => {
     try {
       let response = await axios.post("todos", {description: this.state.description})
-      console.log(response)
       this.props.addTodo(response.data.resource)
     } catch (e) {
       throw new Error(e)
@@ -43,7 +42,7 @@ class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
   
   private handleKeyUp(e: React.KeyboardEvent<HTMLInputElement> | { [p: string]: any }) {
     if (e.key === "Enter" && this.state.description !== "") {
-      this.postTodo()
+      this.postTodo().then(() => {this.setState({description: ""})})
     }
   }
 }
