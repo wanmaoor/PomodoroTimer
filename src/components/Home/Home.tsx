@@ -2,12 +2,12 @@ import React, {Component} from "react"
 import {Dropdown, Icon, Menu} from "antd"
 import axios from "config/axios"
 import "./Home.scss"
-import Todos from "../Todos/Todos"
+import {connect} from "react-redux"
+import {initTodos} from "../../redux/actions/todoActions"
+import {initTomatoes} from "../../redux/actions/tomatoActions"
+import Statistics from "../Statistics/Statistics"
 import Tomatoes from "../Tomatoes/Tomatoes"
-
-interface IRouter {
-  history: any
-}
+import Todos from "../Todos/Todos"
 
 interface IIndexState {
   user: any
@@ -17,8 +17,8 @@ const Tomato = Icon.createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_808628_b6nuh19mmf5.js",
 })
 
-class Home extends Component<IRouter, IIndexState> {
-  constructor(props: Readonly<IRouter>) {
+class Home extends Component<any, IIndexState> {
+  constructor(props: any) {
     super(props)
     this.state = {
       user: {}
@@ -32,11 +32,22 @@ class Home extends Component<IRouter, IIndexState> {
   
   async UNSAFE_componentWillMount() {
     await this.getMe()
+    await this.getTodos()
+    
   }
   
   getMe = async () => {
     const response = await axios.get("me")
     this.setState({user: response.data})
+  }
+  getTodos = async () => {
+    try {
+      const response = await axios.get("todos")
+      const todos = response.data.resources.map((t: any) => Object.assign({}, t, {editable: false}))
+      this.props.initTodos(todos)
+    } catch (e) {
+      throw new Error(e)
+    }
   }
   
   render(): React.ReactNode {
@@ -75,9 +86,22 @@ class Home extends Component<IRouter, IIndexState> {
           <Tomatoes/>
           <Todos/>
         </main>
+        <footer>
+          <Statistics/>
+        </footer>
       </div>
     )
   }
 }
 
-export default Home
+const mapStateToProps = (state: any, ownProps: any) => {
+  return {
+    ...ownProps
+  }
+}
+const mapDispatchToProps = {
+  initTodos,
+  initTomatoes
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

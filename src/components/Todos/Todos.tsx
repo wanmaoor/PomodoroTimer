@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import {editTodo, initTodos, updateTodo} from "../../redux/actions/todoActions"
+import {editTodo, updateTodo} from "../../redux/actions/todoActions"
 import TodoInput from "./TodoInput"
 import TodoItem from "./TodoItem"
 import axios from "config/axios"
@@ -52,21 +52,6 @@ class Todos extends Component<any> {
       throw new Error(e)
     }
   }
-  
-  getTodos = async () => {
-    try {
-      const response = await axios.get("todos")
-      const todos = response.data.resources.map((t: any) => Object.assign({}, t, {editable: false}))
-      this.props.initTodos(todos)
-    } catch (e) {
-      throw new Error(e)
-    }
-  }
-  
-  
-  componentDidMount(): void {
-    this.getTodos()
-  }
 }
 
 interface IMSTPTodos {
@@ -82,7 +67,6 @@ const mapStateToProps: (state: ITodosState, ownProps: any) => IMSTPTodos = (stat
   }
 }
 const mapDispatchToProps = {
-  initTodos,
   editTodo,
   updateTodo
 }
