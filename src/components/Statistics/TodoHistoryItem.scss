@@ -1,0 +1,38 @@
+.todoItem {
+	padding: 8px;
+	font-size: 14px;
+	display: flex;
+	justify-content: space-between;
+
+	&:hover {
+		background: #f4f4f4;
+
+		.action {
+			display: block;
+		}
+	}
+
+	.text {
+		span:first-child {
+			color: #999999;
+			margin-right: 8px;
+		}
+
+		span:last-child {
+			color: #222222;
+		}
+	}
+
+	.action {
+		display: none;
+
+		span {
+			color: deepskyblue;
+			cursor: pointer;
+
+			&:first-child {
+				margin-right: 4px;
+			}
+		}
+	}
+}

@@ -3,6 +3,8 @@ import {connect} from "react-redux"
 import _ from "lodash"
 import {format} from "date-fns"
 import {Tabs} from "antd"
+import TodoHistoryItem from "./TodoHistoryItem"
+import "./TodoHistory.scss"
 
 const {TabPane} = Tabs
 
@@ -10,14 +12,6 @@ interface ITodoHistoryProps {
   todos: ITodo[]
 }
 
-const TodoItem = (props: ITodo) => {
-  return (
-    <div>
-      <span>{props.updated_at}</span>
-      <span>{props.description}</span>
-    </div>
-  )
-}
 
 class TodoHistory extends Component<ITodoHistoryProps> {
   get finishedTodos() {
@@ -27,6 +21,7 @@ class TodoHistory extends Component<ITodoHistoryProps> {
   get deletedTodos() {
     return this.props.todos.filter(t => t.deleted)
   }
+  
   
   get dailyFinishedTodos() {
     return _.groupBy(this.finishedTodos, (todo) => format(Date.parse(todo.updated_at), "yyyy-MM-dd"))
@@ -40,42 +35,29 @@ class TodoHistory extends Component<ITodoHistoryProps> {
     return Object.keys(this.dailyFinishedTodos)
   }
   
-  get deletedDates() {
-    return Object.keys(this.dailyDeletedTodos)
-  }
-  
   render() {
     const finishedTodoList = this.finishedDates.map(date => {
       return (
-        <div key={date}>
-          <div>
-            {date}
-            完成了{this.dailyFinishedTodos[date].length}个任务
+        <div key={date} className={"dailyTodos"}>
+          <div className={"summary"}>
+            <p className="date">
+              <span>{date}</span>
+              <span>周五</span>
+            </p>
+            <p className={"finishedCount"}>完成了{this.dailyFinishedTodos[date].length}个任务</p>
           </div>
-          <div>
+          <div className={"todoList"}>
             {
-              this.dailyFinishedTodos[date].map(todo => <TodoItem key={todo.id} {...todo}/>)
+              this.dailyFinishedTodos[date].map(todo => <TodoHistoryItem key={todo.id} {...todo}
+                                                                         itemType={"finished"}/>)
             }
           </div>
         </div>
       )
     })
-    
-    const deletedTodoList = this.deletedDates.map(date => {
-      return (
-        <div key={date}>
-          <div>
-            {date}
-            删除了{this.dailyDeletedTodos[date].length}个任务
-          </div>
-          <div>
-            {
-              this.dailyDeletedTodos[date].map(todo => <TodoItem key={todo.id} {...todo}/>)
-            }
-          </div>
-        </div>
-      )
-    })
+  
+    const deletedTodoList = this.deletedTodos.map(todo => <TodoHistoryItem key={todo.id} {...todo}
+                                                                           itemType={"deleted"}/>)
     return (
       <Tabs defaultActiveKey="1">
         <TabPane tab="已完成任务" key="1">
