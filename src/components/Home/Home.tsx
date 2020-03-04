@@ -33,7 +33,7 @@ class Home extends Component<any, IIndexState> {
   async UNSAFE_componentWillMount() {
     await this.getMe()
     await this.getTodos()
-    
+    await this.getTomatoes()
   }
   
   getMe = async () => {
@@ -47,6 +47,14 @@ class Home extends Component<any, IIndexState> {
       this.props.initTodos(todos)
     } catch (e) {
       throw new Error(e)
+    }
+  }
+  getTomatoes = async () => {
+    try {
+      const response = await axios.get("tomatoes")
+      this.props.initTomatoes(response.data.resources)
+    } catch (e) {
+      throw new Error()
     }
   }
   
