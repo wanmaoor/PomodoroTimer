@@ -2,6 +2,9 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import _ from "lodash"
 import {format} from "date-fns"
+import {Tabs} from "antd"
+
+const {TabPane} = Tabs
 
 interface ITodoHistoryProps {
   todos: ITodo[]
@@ -29,12 +32,20 @@ class TodoHistory extends Component<ITodoHistoryProps> {
     return _.groupBy(this.finishedTodos, (todo) => format(Date.parse(todo.updated_at), "yyyy-MM-dd"))
   }
   
-  get dates() {
+  get dailyDeletedTodos() {
+    return _.groupBy(this.deletedTodos, (todo) => format(Date.parse(todo.updated_at), "yyyy-MM-dd"))
+  }
+  
+  get finishedDates() {
     return Object.keys(this.dailyFinishedTodos)
   }
   
+  get deletedDates() {
+    return Object.keys(this.dailyDeletedTodos)
+  }
+  
   render() {
-    const todoList = this.dates.map(date => {
+    const finishedTodoList = this.finishedDates.map(date => {
       return (
         <div key={date}>
           <div>
@@ -49,10 +60,35 @@ class TodoHistory extends Component<ITodoHistoryProps> {
         </div>
       )
     })
+    
+    const deletedTodoList = this.deletedDates.map(date => {
+      return (
+        <div key={date}>
+          <div>
+            {date}
+            删除了{this.dailyDeletedTodos[date].length}个任务
+          </div>
+          <div>
+            {
+              this.dailyDeletedTodos[date].map(todo => <TodoItem key={todo.id} {...todo}/>)
+            }
+          </div>
+        </div>
+      )
+    })
     return (
-      <div className={"TodoHistory"} id={"TodoHistory"}>
-        {todoList}
-      </div>
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="已完成任务" key="1">
+          <div className={"TodoHistory"} id={"TodoHistory"}>
+            {finishedTodoList}
+          </div>
+        </TabPane>
+        <TabPane tab="已删除任务" key="2">
+          <div className={"TodoHistory"} id={"TodoHistory"}>
+            {deletedTodoList}
+          </div>
+        </TabPane>
+      </Tabs>
     )
   }
 }
