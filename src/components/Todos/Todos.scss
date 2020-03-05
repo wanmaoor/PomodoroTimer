@@ -1,10 +1,12 @@
 #Todos {
+	overflow: auto;
+	width: calc(50% - 8px);
+	height: 50vh;
 	padding: 16px;
 	border: 1px solid #dddddd;
 	border-radius: 4px;
-	width: calc(50% - 8px);
-	box-shadow: 0 2px 0 rgba(255, 255, 255, .2);
 	background: #ffffff;
+	box-shadow: 0 2px 0 rgba(255, 255, 255, .2);
 
 	> .todoList {
 		margin-top: 16px;
