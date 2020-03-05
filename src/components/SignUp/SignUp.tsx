@@ -53,7 +53,7 @@ export default class SignUp extends Component<any, ISignUp> {
 				>
 					注册
 				</Button>
-				<p>已有账号? <Link to={"/login"}>登录</Link>
+				<p>已有账号? <Link to={{ pathname: "/login" }}>登录</Link>
 				</p>
 			</div>
 		)
@@ -74,8 +74,6 @@ export default class SignUp extends Component<any, ISignUp> {
 			this.props.history.push("/")
 		} catch (e) {
 			throw new Error(e)
-		} finally {
-			console.log("over")
 		}
 	}
 
