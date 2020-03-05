@@ -1,4 +1,4 @@
-import { Dropdown, Icon, Menu, notification } from "antd"
+import { Dropdown, Icon, InputNumber, Menu, Modal, notification } from "antd"
 import axios from "config/axios"
 import React, { Component } from "react"
 import { connect } from "react-redux"
@@ -10,8 +10,11 @@ import Tomatoes from "../Tomatoes/Tomatoes"
 import "./Home.scss"
 
 interface IIndexState {
-	user: any
+	user: any,
+	visible: boolean,
+	timer: number | undefined
 }
+
 
 const Tomato = Icon.createFromIconfontCN({
 	scriptUrl: "//at.alicdn.com/t/font_808628_b6nuh19mmf5.js",
@@ -43,7 +46,9 @@ class Home extends Component<any, IIndexState> {
 	constructor(props: any) {
 		super(props)
 		this.state = {
-			user: {}
+			user: {},
+			visible: false,
+			timer: 25
 		}
 	}
 
@@ -68,7 +73,7 @@ class Home extends Component<any, IIndexState> {
 
 	getMe = async () => {
 		const response = await axios.get("me")
-		this.setState({ user: response.data })
+		this.setState({ ...this.state, user: response.data })
 	}
 	getTodos = async () => {
 		try {
@@ -88,11 +93,38 @@ class Home extends Component<any, IIndexState> {
 		}
 	}
 
+	handleOk = () => {
+		this.setState({
+			...this.state,
+			visible: false,
+		});
+	}
+
+	handleCancel = () => {
+		this.setState({
+			...this.state,
+			visible: false,
+		});
+	}
+	showModal = () => {
+		this.setState({
+			...this.state,
+			visible: true,
+		});
+	}
+	onInputValChange = (val: number | undefined) => {
+		this.setState({
+			...this.state,
+			timer: val
+		})
+	}
+
 	render(): React.ReactNode {
 		const menu = (
+
 			<Menu style={{ textAlign: "right" }}>
 				<Menu.Item>
-          <span onClick={(e) => {e.preventDefault()}}>
+          <span onClick={() => {this.showModal()}}>
             偏好设置&nbsp;<Icon type={"setting"}/>
           </span>
 				</Menu.Item>
@@ -106,6 +138,14 @@ class Home extends Component<any, IIndexState> {
 		)
 		return (
 			<div className={"Home"} id={"Home"}>
+				<Modal
+					title="设置一个番茄的时间"
+					visible={this.state.visible}
+					onOk={() => {this.handleOk()}}
+					onCancel={() => {this.handleCancel()}}
+				>
+					<InputNumber min={1} max={100} defaultValue={25} onChange={(e) => {this.onInputValChange(e)}}/> min
+				</Modal>
 				<header>
           <span className="logo">
             <Tomato type={"i-Tomato"} className={"icon"}/>
@@ -121,7 +161,7 @@ class Home extends Component<any, IIndexState> {
 					</Dropdown>
 				</header>
 				<main>
-					<Tomatoes/>
+					<Tomatoes timer={this.state.timer}/>
 					<Todos/>
 				</main>
 				<footer>

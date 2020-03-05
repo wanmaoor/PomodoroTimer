@@ -28,7 +28,7 @@ class Tomatoes extends Component<ITomatoesProps> {
     return (
       <div className={"Tomatoes"} id={"Tomatoes"}>
         <TomatoAction
-          startTomato={this.startTomato}
+          startTomato={() => {this.startTomato(this.props.timer)}}
           updateTomato={this.props.updateTomato}
           unfinishedTomato={this.unfinishedTomato}
         />
@@ -36,10 +36,10 @@ class Tomatoes extends Component<ITomatoesProps> {
       </div>
     )
   }
-  
-  private startTomato = async () => {
+
+  private startTomato = async (timer: number) => {
     try {
-      const response = await axios.post("tomatoes", {duration: 5 * 1000})
+      const response = await axios.post("tomatoes", { duration: timer * 60 * 1000 })
       this.props.addTomato(response.data.resource)
     } catch (e) {
       throw new Error(e)
@@ -47,7 +47,7 @@ class Tomatoes extends Component<ITomatoesProps> {
   }
 }
 
-const mapStateToProps = (state: any, props: any) => ({tomatoes: state.tomatoes, ...props})
+const mapStateToProps = (state: any, props: any) => ({ tomatoes: state.tomatoes, ...props })
 const mapDispatchToProps = {
   addTomato,
   updateTomato

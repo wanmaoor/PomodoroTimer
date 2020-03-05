@@ -50,6 +50,7 @@ interface ITomatoesProps {
 	updateTomato: (payload: any) => any
 	initTomatoes: (payload: any[]) => void
 	tomatoes: ITomato[]
+	timer: number
 }
 
 interface ITomato {
