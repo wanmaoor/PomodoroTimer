@@ -1,5 +1,5 @@
-import React, {Component} from "react"
-import {format} from "date-fns"
+import { format } from "date-fns"
+import React, { Component } from "react"
 import "./TomatoList.scss"
 
 interface ITomatoListProps {
@@ -21,7 +21,7 @@ const TomatoItem = function (props: ITomato) {
 class TomatoList extends Component<ITomatoListProps> {
   get dates() {
     let dates = Object.keys(this.props.finishedTomatoes)
-    return dates.sort((a, b) => Date.parse(a) - Date.parse(b)).splice(0, 3)
+    return dates.sort((a, b) => Date.parse(b) - Date.parse(a)).splice(0, 3)
   }
   
   render() {
