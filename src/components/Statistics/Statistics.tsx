@@ -1,9 +1,9 @@
-import React, {Component} from "react"
-import {connect} from "react-redux"
-import "./Statistics.scss"
-import Polygon from "./Polygon"
+import { format } from "date-fns"
 import _ from "lodash"
-import {format} from "date-fns"
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import Polygon from "./Polygon"
+import "./Statistics.scss"
 import TodoHistory from "./TodoHistory"
 
 interface IStatisticsProps {
@@ -28,8 +28,7 @@ class Statistics extends Component<IStatisticsProps> {
           <li>目标</li>
           <li>番茄历史</li>
           <li>
-            任务历史
-            累计完成{this.finishedTodos.length}个任务
+            累计完成<h1>{this.finishedTodos.length}</h1>个任务
             <Polygon data={this.dailyTodos} totalFinishedCount={this.finishedTodos.length}/>
           </li>
         </ul>

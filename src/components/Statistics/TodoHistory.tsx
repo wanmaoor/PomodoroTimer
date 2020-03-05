@@ -1,12 +1,12 @@
-import React, {Component} from "react"
-import {connect} from "react-redux"
+import { Tabs } from "antd"
+import { format } from "date-fns"
 import _ from "lodash"
-import {format} from "date-fns"
-import {Tabs} from "antd"
-import TodoHistoryItem from "./TodoHistoryItem"
+import React, { Component } from "react"
+import { connect } from "react-redux"
 import "./TodoHistory.scss"
+import TodoHistoryItem from "./TodoHistoryItem"
 
-const {TabPane} = Tabs
+const { TabPane } = Tabs
 
 interface ITodoHistoryProps {
   todos: ITodo[]
@@ -17,24 +17,24 @@ class TodoHistory extends Component<ITodoHistoryProps> {
   get finishedTodos() {
     return this.props.todos.filter(t => t.completed && !t.deleted)
   }
-  
+
   get deletedTodos() {
     return this.props.todos.filter(t => t.deleted)
   }
-  
-  
+
+
   get dailyFinishedTodos() {
     return _.groupBy(this.finishedTodos, (todo) => format(Date.parse(todo.updated_at), "yyyy-MM-dd"))
   }
-  
+
   get dailyDeletedTodos() {
     return _.groupBy(this.deletedTodos, (todo) => format(Date.parse(todo.updated_at), "yyyy-MM-dd"))
   }
-  
+
   get finishedDates() {
     return Object.keys(this.dailyFinishedTodos)
   }
-  
+
   render() {
     const finishedTodoList = this.finishedDates.map(date => {
       return (
@@ -42,7 +42,7 @@ class TodoHistory extends Component<ITodoHistoryProps> {
           <div className={"summary"}>
             <p className="date">
               <span>{date}</span>
-              <span>周五</span>
+              <span>{format(Date.parse(date), 'cccc')}</span>
             </p>
             <p className={"finishedCount"}>完成了{this.dailyFinishedTodos[date].length}个任务</p>
           </div>
@@ -55,7 +55,7 @@ class TodoHistory extends Component<ITodoHistoryProps> {
         </div>
       )
     })
-  
+
     const deletedTodoList = this.deletedTodos.map(todo => <TodoHistoryItem key={todo.id} {...todo}
                                                                            itemType={"deleted"}/>)
     return (
