@@ -24,9 +24,9 @@ class Statistics extends Component<IStatisticsProps> {
     return (
       <div className={"Statistics"} id={"Statistics"}>
         <ul>
-          <li>统计</li>
-          <li>目标</li>
-          <li>番茄历史</li>
+          {/*<li>统计</li>*/}
+          {/*<li>目标</li>*/}
+          {/*<li>番茄历史</li>*/}
           <li>
             累计完成<h1 style={{ color: "#1890ff" }}>{this.finishedTodos.length}</h1>个任务
             <Polygon data={this.dailyTodos} totalFinishedCount={this.finishedTodos.length}/>
