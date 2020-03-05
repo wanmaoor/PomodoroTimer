@@ -1,13 +1,13 @@
-import React, {Component} from "react"
-import {Dropdown, Icon, Menu} from "antd"
+import { Dropdown, Icon, Menu } from "antd"
 import axios from "config/axios"
-import "./Home.scss"
-import {connect} from "react-redux"
-import {initTodos} from "../../redux/actions/todoActions"
-import {initTomatoes} from "../../redux/actions/tomatoActions"
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { initTodos } from "redux/actions/todoActions"
+import { initTomatoes } from "redux/actions/tomatoActions"
 import Statistics from "../Statistics/Statistics"
-import Tomatoes from "../Tomatoes/Tomatoes"
 import Todos from "../Todos/Todos"
+import Tomatoes from "../Tomatoes/Tomatoes"
+import "./Home.scss"
 
 interface IIndexState {
   user: any

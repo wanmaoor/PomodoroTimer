@@ -1,9 +1,9 @@
-import React, {Component} from "react"
-import {connect} from "react-redux"
-import {format} from "date-fns"
 import axios from "config/axios"
+import { format } from "date-fns"
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { updateTodo } from "redux/actions/todoActions"
 import "./TodoHistoryItem.scss"
-import {updateTodo} from "../../redux/actions/todoActions"
 
 interface ITodoHistoryItemProps extends ITodo {
   itemType: "deleted" | "finished"

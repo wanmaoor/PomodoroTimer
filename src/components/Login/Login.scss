@@ -1,14 +1,17 @@
 #Login {
 	max-width: 500px;
-	padding: 50px 0;
 	margin: 0 auto;
-	>*{
+	padding: 50px 0;
+
+	> * {
 		margin: 10px 0;
 	}
+
 	h1 {
 		text-align: center;
 	}
-	>.loginButton{
+
+	> .loginButton {
 		width: 100%;
 	}
 }

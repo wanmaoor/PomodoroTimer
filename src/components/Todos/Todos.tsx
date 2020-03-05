@@ -1,17 +1,17 @@
-import React, {Component} from "react"
-import {connect} from "react-redux"
-import {editTodo, updateTodo} from "../../redux/actions/todoActions"
+import axios from "config/axios"
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { editTodo, updateTodo } from "redux/actions/todoActions"
 import TodoInput from "./TodoInput"
 import TodoItem from "./TodoItem"
-import axios from "config/axios"
 import "./Todos.scss"
 
 
 class Todos extends Component<any> {
-  
-  get unCompletedTodos() {
-    return this.unDeletedTodos.filter((t: ITodo) => !t.completed)
-  }
+
+	get unCompletedTodos() {
+		return this.unDeletedTodos.filter((t: ITodo) => !t.completed)
+	}
   
   get unDeletedTodos() {
     return this.props.todos.filter((t: ITodo) => !t.deleted)

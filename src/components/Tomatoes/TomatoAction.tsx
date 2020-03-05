@@ -1,17 +1,17 @@
-import React, {Component} from "react"
-import {Button, Icon, Input, Modal} from "antd"
+import { Button, Icon, Input, Modal } from "antd"
 import axios from "config/axios"
+import { TITLE } from "constants/Sign"
+import React, { Component } from "react"
 import CountDown from "./CountDownHook"
 import "./TomatoAction.scss"
-import {TITLE} from "../../constants/Sign"
 
-const {confirm} = Modal
+const { confirm } = Modal
 
 class TomatoAction extends Component<ITomatoActionProps, ITomatoActionState> {
-  constructor(props: ITomatoActionProps) {
-    super(props)
-    this.state = {
-      description: ""
+	constructor(props: ITomatoActionProps) {
+		super(props)
+		this.state = {
+			description: ""
     }
   }
   

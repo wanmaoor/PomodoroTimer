@@ -1,18 +1,18 @@
-import React, {Component} from "react"
-import {Input} from "antd"
-import {connect} from "react-redux"
-import {addTodo} from "../../redux/actions/todoActions"
+import { Input } from "antd"
 import axios from "config/axios"
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { addTodo } from "redux/actions/todoActions"
 
 class TodoInput extends Component<ITodoInputProps, ITodoInputState> {
-  constructor(props: ITodoInputProps) {
-    super(props)
-    this.state = {
-      description: ""
-    }
-  }
-  
-  onChange = (value: string) => {
+	constructor(props: ITodoInputProps) {
+		super(props)
+		this.state = {
+			description: ""
+		}
+	}
+
+	onChange = (value: string) => {
     this.setState({description: value})
   }
   

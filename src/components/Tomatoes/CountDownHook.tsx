@@ -1,15 +1,15 @@
-import React, {FC, useEffect, useState} from "react"
+import { TITLE } from "constants/Sign"
+import React, { FC, useEffect, useState } from "react"
 import "./CountDown.scss"
-import {TITLE} from "../../constants/Sign"
 
 let timerId: number
 const CountDownHook: FC<ICountDownProps> = (props) => {
-  const [countDown, setCountDown] = useState(props.timer)
-  const min = Math.floor(countDown / 1000 / 60)
-  const sec = Math.floor(countDown / 1000 % 60)
-  const time = `${min < 10 ? `0${min}` : min} : ${sec < 10 ? `0${sec}` : sec}`
-  useEffect(() => {
-    document.title = `${time} - Pomodoro Timer`
+	const [countDown, setCountDown] = useState(props.timer)
+	const min = Math.floor(countDown / 1000 / 60)
+	const sec = Math.floor(countDown / 1000 % 60)
+	const time = `${min < 10 ? `0${min}` : min} : ${sec < 10 ? `0${sec}` : sec}`
+	useEffect(() => {
+		document.title = `${time} - Pomodoro Timer`
     timerId = window.setInterval(() => {
       setCountDown(countDown - 1000)
     }, 1000)
