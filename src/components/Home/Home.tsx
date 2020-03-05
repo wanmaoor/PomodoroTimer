@@ -121,7 +121,6 @@ class Home extends Component<any, IIndexState> {
 
 	render(): React.ReactNode {
 		const menu = (
-
 			<Menu style={{ textAlign: "right" }}>
 				<Menu.Item>
           <span onClick={() => {this.showModal()}}>
@@ -148,7 +147,8 @@ class Home extends Component<any, IIndexState> {
 				</Modal>
 				<header>
           <span className="logo">
-            <Tomato type={"i-Tomato"} className={"icon"}/>
+            <Tomato type={"i-Tomato"} className={"icon"} style={{ fontSize: 32 }}/>
+            Pomodoro Timer
           </span>
 					<Dropdown overlay={menu}>
             <span
