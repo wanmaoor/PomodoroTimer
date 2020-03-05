@@ -10,15 +10,20 @@ import TomatoList from "./TomatoList"
 
 
 class Tomatoes extends Component<ITomatoesProps> {
-	get unfinishedTomato() {
-		return this.props.tomatoes.filter(t => !t.description && !t.ended_at && !t.aborted)[0]
-	}
 
-	get finishedTomatoes() {
+  get unfinishedTomato() {
+    return this.props.tomatoes.filter(t => !t.description && !t.ended_at && !t.aborted)[0]
+  }
+
+  get finishedTomatoes() {
     const finishedTomatoes = this.props.tomatoes.filter(t => t.description && t.ended_at && !t.aborted)
     return _.groupBy(finishedTomatoes, (tomato) => format(Date.parse(tomato.started_at), "yyyy-MM-dd"))
   }
-  
+
+  public componentDidMount(): void {
+    this.setState({ spinning: false })
+  }
+
   render() {
     return (
       <div className={"Tomatoes"} id={"Tomatoes"}>
