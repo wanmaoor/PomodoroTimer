@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, { Component } from "react"
 
 interface IPolygonProps {
   data: any
@@ -32,7 +32,7 @@ class Polygon extends Component<IPolygonProps> {
     return (
       <div className={"Polygon"} id={"Polygon"}>
         <svg>
-          <polygon fill="rgba(215,78,78,0.1)" stroke="rgba(215,78,78,0.5)" strokeWidth="1"
+          <polygon fill="rgba(24, 144, 255, 0.1)" stroke="rgba(24, 144, 255, 0.5)" strokeWidth="1"
                    points={this.points()}/>
         </svg>
       </div>
