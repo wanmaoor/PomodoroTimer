@@ -42,6 +42,17 @@ const openNotification1 = () => {
 	});
 }
 
+const openNotification2 = () => {
+	notification.open({
+		message: '使用小提示',
+		description:
+			'双击todo列表可以编辑噢~',
+		onClick: () => {
+			console.log('Notification Clicked!');
+		},
+	});
+}
+
 class Home extends Component<any, IIndexState> {
 	constructor(props: any) {
 		super(props)
@@ -62,6 +73,7 @@ class Home extends Component<any, IIndexState> {
 		if (count === 1) {
 			openNotification()
 			openNotification1()
+			openNotification2()
 		}
 	}
 
