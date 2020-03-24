@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, {Component} from "react"
 
 interface IPolygonProps {
   data: any
@@ -10,6 +10,7 @@ class Polygon extends Component<IPolygonProps> {
   
   points = () => {
     const dates = Object.keys(this.props.data).sort((a, b) => Date.parse(a) - Date.parse(b))
+    console.log("dates", dates)
     const firstDay = dates[0]
     if (firstDay) {
       const range = new Date().getTime() - Date.parse(firstDay)
@@ -24,7 +25,7 @@ class Polygon extends Component<IPolygonProps> {
       })
       return ["0,60", ...pointsArr, `240,${finishedY}`, `240, 60`].join(" ")
     } else {
-      return "0,60 0,60"
+      return "0,60 240,60"
     }
   }
   

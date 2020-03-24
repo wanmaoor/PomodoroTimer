@@ -1,17 +1,17 @@
-import { Button, Icon, Input, Modal } from "antd"
+import {Button, Icon, Input, Modal} from "antd"
 import axios from "config/axios"
-import { TITLE } from "constants/Sign"
-import React, { Component } from "react"
+import {TITLE} from "constants/Sign"
+import React, {Component} from "react"
 import CountDown from "./CountDownHook"
 import "./TomatoAction.scss"
 
-const { confirm } = Modal
+const {confirm} = Modal
 
 class TomatoAction extends Component<ITomatoActionProps, ITomatoActionState> {
-	constructor(props: ITomatoActionProps) {
-		super(props)
-		this.state = {
-			description: ""
+  constructor(props: ITomatoActionProps) {
+    super(props)
+    this.state = {
+      description: ""
     }
   }
   
@@ -32,7 +32,7 @@ class TomatoAction extends Component<ITomatoActionProps, ITomatoActionState> {
             onChange={e => {this.setState({description: e.target.value})}}
             onKeyUp={e => {this.handleKeyUp(e.key)}}
           />
-          <Icon type={"close-circle"} className={"abort"}/>
+          <Icon type={"close-circle"} className={"abort"} onClick={() => {this.abortTomato()}}/>
         </div>
       } else if (now - started_at < duration) {
         const timer = duration - now + started_at
