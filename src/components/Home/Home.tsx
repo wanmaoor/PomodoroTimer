@@ -1,9 +1,9 @@
-import { Dropdown, Icon, InputNumber, Menu, Modal, notification } from "antd"
+import {Dropdown, Icon, InputNumber, Menu, Modal, notification} from "antd"
 import axios from "config/axios"
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import { initTodos } from "redux/actions/todoActions"
-import { initTomatoes } from "redux/actions/tomatoActions"
+import React, {Component} from "react"
+import {connect} from "react-redux"
+import {initTodos} from "redux/actions/todoActions"
+import {initTomatoes} from "redux/actions/tomatoActions"
 import Statistics from "../Statistics/Statistics"
 import Todos from "../Todos/Todos"
 import Tomatoes from "../Tomatoes/Tomatoes"
@@ -59,7 +59,7 @@ class Home extends Component<any, IIndexState> {
 		this.state = {
 			user: {},
 			visible: false,
-			timer: 25
+			timer: parseInt(localStorage.getItem("timer") as string)
 		}
 	}
 
@@ -125,6 +125,7 @@ class Home extends Component<any, IIndexState> {
 		});
 	}
 	onInputValChange = (val: number | undefined) => {
+		localStorage.setItem("timer", val!.toString())
 		this.setState({
 			...this.state,
 			timer: val
@@ -155,17 +156,18 @@ class Home extends Component<any, IIndexState> {
 					onOk={() => {this.handleOk()}}
 					onCancel={() => {this.handleCancel()}}
 				>
-					<InputNumber min={1} max={100} defaultValue={25} onChange={(e) => {this.onInputValChange(e)}}/> min
+					<InputNumber min={1} max={100} defaultValue={parseInt(localStorage.getItem("timer") as string)}
+											 onChange={(e) => {this.onInputValChange(e)}}/> mi
 				</Modal>
 				<header>
           <span className="logo">
-            <Tomato type={"i-Tomato"} className={"icon"} style={{ fontSize: 32 }}/>
+            <Tomato type={"i-Tomato"} className={"icon"} style={{fontSize: 32}}/>
             Pomodoro Timer
           </span>
 					<Dropdown overlay={menu}>
             <span
-	            className="ant-dropdown-link"
-	            onClick={e => e.preventDefault()}
+							className="ant-dropdown-link"
+							onClick={e => e.preventDefault()}
 	            style={{ color: "#1890ff", cursor: "pointer", fontSize: "1rem" }}
             >
               你好, {this.state.user?.account} <Icon type="down"/>

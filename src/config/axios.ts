@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios"
+import axios, {AxiosRequestConfig} from "axios"
 import history from "./history"
 
 const appID = "HEtRxRQ3APDWy3eHKYme5KjY"
@@ -31,6 +31,9 @@ instance.interceptors.response.use(function (response) {
     localStorage.setItem("x-token", response.headers["x-token"])
     localStorage.setItem("count", n.toString())
     n += 1
+  }
+  if (!localStorage.getItem("timer")) {
+    localStorage.setItem("timer", "25")
   }
   return response
 }, function (error) {
